@@ -1,0 +1,261 @@
+.App {
+    text-align: center;
+    margin-left: 4%;
+}
+
+.atantion_icon {
+    height: 100px;
+}
+
+.description {
+    margin-top: 150px;
+}
+
+.get {
+    /* margin-top: 50px; */
+    width: 60%;
+    margin-left: 20%;
+}
+
+.infoBut {
+    margin-top: 32px;
+}
+
+.loginForm {
+    border: #282c34 1px dotted;
+    border-radius: 10px;
+    padding: 1%;
+    margin-top: 50px;
+    width: 40%;
+    margin-left: 30%;
+}
+
+.logLink {
+    margin-top: 10px;
+}
+
+.loginBut {
+    margin-top: 25px;
+}
+
+.loader {
+    margin-left: 45%;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid rgb(172, 169, 169);
+    border-right: 16px solid rgb(75, 74, 74);
+    border-bottom: 16px solid black;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.user_welcome {
+    margin-left: -8%;
+    margin-top: 40px;
+    z-index: 999;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: fixed;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.newVacation_div {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 998;
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 100%;
+    padding: 2%;
+}
+
+.newVacation_form {
+    background-color: white;
+    border: #282c34 1px dotted;
+    border-radius: 10px;
+    padding: 1%;
+    width: 40%;
+    margin-left: 30%;
+}
+
+.cardButton {
+    width: 15%;
+    margin-top: -300px;
+}
+
+.cl {
+    width: 8%;
+    border-top-right-radius: 50px;
+    border-top-left-radius: 50px;
+    margin-top: 0;
+}
+
+.tr {
+    margin: 10px;
+    background-color: rgba(255, 253, 253, 0.5);
+    border-radius: 50px;
+    border: none;
+    height: 60px;
+    width: 60px;
+}
+
+.NavBar_1 {
+    background: #363636;
+    background: -moz-linear-gradient(left, #363636 0%, #212121 54%, #000000 100%);
+    background: -webkit-linear-gradient(left, #363636 0%, #212121 54%, #000000 100%);
+    background: linear-gradient(to right, #363636 0%, #212121 54%, #000000 100%);
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 16px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.navLinks {
+    margin-top: 120px;
+}
+
+.nav_icons {
+    height: 50px;
+    width: 50px;
+}
+
+.sidebar {
+    margin-top: 15px;
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+}
+
+.sidebar:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.main {
+    width: 99%;
+    margin-bottom: 10%;
+}
+
+.card {
+    margin-top: 20px;
+    border: none;
+    width: 100%;
+    height: 500px;
+}
+
+.card_img {
+    height: 500px;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    width: 100%;
+}
+
+.content {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    position: absolute;
+    margin-top: 155px;
+    z-index: 20;
+}
+
+.chengeVacation_form {
+    margin: 20px;
+}
+
+.like_png {
+    height: 35px;
+    width: 35px;
+}
+
+.cardLikeButton {
+    background-color: rgba(255, 253, 253, 0.5);
+    border: none;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    position: absolute;
+    margin-left: 88%;
+    margin-top: 15px;
+}
+
+.cardAdminButtons {
+    background-color: rgba(255, 253, 253, 0.5);
+    border: none;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    position: absolute;
+    margin: 5px;
+}
+
+.cardAdminButtons:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.rem_png {
+    height: 30px;
+    width: 30px;
+}
+
+#del {
+    margin-left: -70px;
+}
+
+.ic_png {
+    height: 25px;
+    width: 25px;
+}
+
+.dn {
+    margin-top: 15px;
+}
+
+.chart {
+    margin-left: 12%;
+    height: 50%;
+    width: 80%;
+}
+
+.desc {
+    height: 95px;
+}
+
+#sort_by {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.ligin_name {
+    color: red;
+}
