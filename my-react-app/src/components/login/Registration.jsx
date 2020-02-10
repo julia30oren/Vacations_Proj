@@ -7,26 +7,33 @@ export default class Register extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: '',
+      users_email: '',
       password: '',
       confPass: '',
-      F_name: '',
-      L_name: ''
+      users_first_name: '',
+      users_last_name: ''
     }
   }
 
   handleOnChange = (e) => {
-
     const { target } = e;
-    this.setState({ [target.name]: target.value });
-    console.log(target.value)
+    if (target.value.length <= 0) {
+      this.setState({ [target.name]: target.name });
+    }
+    else { this.setState({ [target.name]: target.value }); }
+  }
 
+  handleCheck = (e) => {
+    const { target } = e;
+    if (this.state.password !== target.value) {
+      this.setState({ confPass: 'confPass' });
+    }
+    else { this.setState({ [target.name]: target.value }); }
   }
 
   handleRegister = async () => {
     if (this.state.password === this.state.confPass) {
-      console.log("click", registerUrl, this.state.email, this.state.password, this.state.F_name, this.state.L_name)
-      const result = await axios.post(registerUrl, { email: this.state.email, password: this.state.password, F_name: this.state.F_name, L_name: this.state.L_name });
+      const result = await axios.post(registerUrl, this.state);
       const { message, redirect } = result.data;
       alert(message);
       if (redirect === true) {
@@ -41,46 +48,55 @@ export default class Register extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>Registration</h1>
-        <div className="loginForm">
+      <div className="row">
+        <div className="col-sm-1 col-md-2 col-lg-3"></div>
+        <div className="some col-sm-10 col-md-8 col-lg-6">
+
+          <h1>Registration</h1>
 
           <form>
 
             <div className="form-group">
               <label htmlFor="email">Email address</label>
-              <input type="email" name="email" className="form-control" id="email" placeholder="Enter your email"
+              <input type="email" name="users_email" className="form-control" id="email" placeholder="Enter your email"
                 onChange={this.handleOnChange} />
+              {(this.state.users_email === 'users_email') ? <div className="not_filed"><p>You can't be registered without Email!</p></div> : null}
+
             </div>
 
             <div className="form-group">
               <label htmlFor="password">Password must contain only 4 digits!</label>
               <input type="password" name="password" className="form-control" id="password" placeholder="Password"
                 onChange={this.handleOnChange} />
+              {(this.state.password === 'password') ? <div className="not_filed"><p>You can't be registered without Password!</p></div> : null}
             </div>
 
             <div className="form-group">
               <label htmlFor="confPass"> Password Confirmation</label>
               <input type="password" name="confPass" className="form-control" id="confPass" placeholder="Password"
-                onChange={this.handleOnChange} />
+                onChange={this.handleCheck} />
+              {(this.state.confPass === 'confPass') ? <div className="not_filed"><p>Your Password don't match!</p></div> : null}
             </div>
 
             <div className="form-group">
               <label htmlFor="F_name">First name must contain only letters and not less than two.</label>
-              <input type="text" name="F_name" className="form-control" id="F_name" placeholder="First name"
+              <input type="text" name="users_first_name" className="form-control" id="F_name" placeholder="First name"
                 onChange={this.handleOnChange} />
+              {(this.state.users_first_name === 'users_first_name') ? <div className="not_filed"><p>Names should be filed!</p></div> : null}
             </div>
 
             <div className="form-group">
               <label htmlFor="L_name">Last name must contain only letters and not less than two.</label>
-              <input type="text" name="L_name" className="form-control" id="L_name" placeholder="Last name"
+              <input type="text" name="users_last_name" className="form-control" id="L_name" placeholder="Last name"
                 onChange={this.handleOnChange} />
+              {(this.state.users_last_name === 'users_last_name') ? <div className="not_filed"><p>Names should be filed!</p></div> : null}
             </div>
 
             <button type="button" className="btn btn-success btn-block loginBut"
               onClick={this.handleRegister}>Submit</button>
           </form>
         </div>
+        <div className="col-sm-1 col-md-2 col-lg-3"></div>
       </div>
     );
   }

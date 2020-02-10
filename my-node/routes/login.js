@@ -5,7 +5,7 @@ const pool = require("../DB/pool");
 const bcrypt = require('bcryptjs');
 
 ////encoding password:
-// const password = "123456789";
+// const password = "0000";
 // const salt = bcrypt.genSaltSync(10)
 // var hash = bcrypt.hashSync(password, salt);
 // console.log(hash)
@@ -24,19 +24,27 @@ const bcrypt = require('bcryptjs');
 // console.log(decoded.email, decoded.exp);
 
 router.post("/login", async(req, res, next) => {
-    const { email, password } = req.body;
-    console.log(email, password)
-    const user = await pool.execute(ifUserExist(), [email]);
-    console.log(user[0][0])
-    if (user[0][0]) {
-        const hush = user[0][0].password;
+    const { users_email, password } = req.body;
+    const if_userExist_result = await pool.execute(ifUserExist(), [users_email]);
+
+    if (if_userExist_result[0][0]) {
+
+        const hush = if_userExist_result[0][0].cripted_password;
         const cryptoPassChek = bcrypt.compareSync(password, hush);
-        const fullName = user[0][0].first_name + ' ' + user[0][0].last_name;
+        const fullName = if_userExist_result[0][0].users_first_name + ' ' + if_userExist_result[0][0].users_last_name;
 
         if (cryptoPassChek === true) {
-            const token = JWT.sign({ email }, process.env.SECRET, { expiresIn: '1h' });
-            const getUsersLikes = await pool.execute(getLikes(), [email]);
-            res.json({ message: 'user loged in', user: fullName, email: email, likes: `[${getUsersLikes[0][0].likes}]`, token: token, cookie_token: process.env.SECRET, redirect: true });
+            const token = JWT.sign({ users_email }, process.env.SECRET, { expiresIn: '1h' });
+            const getUsersLikes_res = await pool.execute(getLikes(), [users_email]);
+            res.json({
+                message: 'user loged in',
+                user: fullName,
+                email: users_email,
+                likes: getUsersLikes_res[0][0].users_favorites,
+                token: token,
+                cookie_token: process.env.SECRET,
+                redirect: true
+            });
         } else {
             res.json({ message: 'password do not match !!!!' });
         }
@@ -47,47 +55,53 @@ router.post("/login", async(req, res, next) => {
 
 router.post("/login/admin", async(req, res, next) => {
     const { name, password } = req.body;
-    const admin = await pool.execute(ifAdminExist(), [name, password]);
-    if (admin[0][0]) {
+    console.log(name, password)
+    const if_adminExist_result = await pool.execute(ifAdminExist(), [name, password]);
+    if (if_adminExist_result[0][0]) {
         const token = JWT.sign({ name }, process.env.ADMIN_SECRET, { expiresIn: '1h' });
-        res.json({ message: 'user loged in as ADMIN', redirect: true, user: admin[0][0].name, token: token, cookie_token: process.env.ADMIN_SECRET });
+        res.json({ message: 'user loged as ADMIN', redirect: true, user: name, token: token, cookie_token: process.env.ADMIN_SECRET });
     } else {
         res.json({ message: 'password did not match !!!!' });
     }
 })
 
-router.post("/login/PasswordChenge", async(req, res, next) => {
-    const { email, password, newpass } = req.body;
-
-    const result = await pool.execute(ifUserExist(), [email]);
-    const hush = result[0][0].password;
+router.post("/login/password-chenge", async(req, res, next) => {
+    const { users_email, password, newpass } = req.body;
+    const userExist_result = await pool.execute(ifUserExist(), [users_email]);
+    const hush = userExist_result[0][0].cripted_password;
     const cryptoPassChek = bcrypt.compareSync(password, hush);
-    console.log(cryptoPassChek);
 
     if (cryptoPassChek === true) {
         const salt = bcrypt.genSaltSync(10);
         const newhash = bcrypt.hashSync(newpass, salt);
-        const cangePassword = await pool.execute(cangePasswordQuery(), [newhash, email]);
-        res.json({ message: 'password chenged', user: email, redirect: true })
+        const cangePassword_result = await pool.execute(cangePasswordQuery(), [newhash, users_email]);
+        res.json({ message: 'password chenged', user: users_email, redirect: true })
     } else {
         res.json({ message: 'password NOT chenged', redirect: false });
     }
 })
 
 function ifUserExist() {
-    return `SELECT * FROM vacation_project.users where email = ? ;`
+    return `SELECT * FROM vacations_project.users 
+            WHERE users_email = ? ;`
 }
 
 function getLikes() {
-    return `SELECT likes FROM vacation_project.users where email = ? ;`
+    return `SELECT user_email, GROUP_CONCAT(DISTINCT vacation_id SEPARATOR ', ')  AS users_favorites
+            FROM vacations_project.likes_count 
+            WHERE user_email = ? ;`
 }
 
 function ifAdminExist() {
-    return `SELECT * FROM vacation_project.admin where name = ? AND password = ? ;`
+    return `SELECT * FROM vacations_project.admins
+            WHERE admins_name = ? 
+            AND admins_password = ? `
 }
 
 function cangePasswordQuery() {
-    return `UPDATE vacation_project.users SET password = ? WHERE email = ? ;`
+    return `UPDATE vacations_project.users
+            SET cripted_password = ?
+            WHERE users_email = ? `
 }
 
 module.exports = router;

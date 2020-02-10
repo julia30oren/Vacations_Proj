@@ -24,27 +24,36 @@ export default function AdminPage() {
     }, []);
 
     return (
-        <div className="App">
+        <div>
+            <h1 className="ad_h"> Admins page </h1>
             {vacations === 'loader' ? <div className="loader"></div> :
-                <div className="main row">{JSON.parse(localStorage.InfoResult).map((vacation, i) => {
-                    return (
-                        <AdminVacationCard key={i}
-                            id={vacation.id}
-                            likes={vacation.likes}
-                            img={vacation.vacation_pictures}
-                            vacation_names={vacation.vacation_names}
-                            vacation_prices={vacation.vacation_prices}
-                            vacation_descriptions={vacation.vacation_descriptions}
-                            vacation_datas={vacation.vacation_start + ' - ' + vacation.vacation_end}
-                            vacation_start={vacation.vacation_start}
-                            vacation_end={vacation.vacation_end} />
-                    )
-                })}
+                <div className="row admins_home">
+                    <div className="col-0 col-sm-0 col-md-1 col-lg-1"></div>
+
+                    <div className="col-12 col-sm-12 col-md-10 col-lg-10">
+                        <div className="row">
+                            {JSON.parse(localStorage.InfoResult).map((vacation, i) => {
+                                return (
+                                    <AdminVacationCard key={i}
+                                        id={vacation.vacation_id}
+                                        likes={vacation.LIKES}
+                                        img={vacation.vacations_IMG}
+                                        vacation_names={vacation.vacations_country}
+                                        vacation_prices={vacation.vacations_prices}
+                                        vacation_descriptions={vacation.vacations_description}
+                                        start={vacation.vacations_start}
+                                        end={vacation.vacations_end} />
+                                )
+                            })}
+                        </div>
+                    </div>
+
+                    <div className="col-0 col-sm-0 col-md-1 col-lg-1"></div>
                 </div>
             }
-            {(newVacation === false) ? <button className="cardButton btn btn-dark" onClick={() => { setNewVacation(true) }}> <img alt="..." className="ic_png" src={download} /> Add New Vacation </button> :
+            {(newVacation === false) ? <button className="btn btn-dark add_vac" onClick={() => { setNewVacation(true) }}> <img alt="..." className="ic_png" src={download} /> Add New Vacation </button> :
                 <div className="newVacation_div">
-                    <button className="cl cardButton btn btn-dark" onClick={() => { setNewVacation(false) }}><img alt="..." className="ic_png" src={close} /> Close</button>
+                    <button className="x_button btn btn-dark" onClick={() => { setNewVacation(false); window.location.reload(); }}><img alt="..." className="ic_png" src={close} /> Close</button>
                     <AdminAddingForm />
                 </div>}
         </div>

@@ -1,0 +1,17 @@
+{
+    "name": "dev-apps",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "concurrently -k -p \"[{name}]\" -n \"server,client\" -c \"blue,green\" \"npm run server\" \"npm run client\" ",
+        "server": "cd ../my-node/ && npm start",
+        "client": "cd ../my-react-app/ && npm start"
+    },
+    "author": "JuliaOrendovsky",
+    "license": "ISC",
+    "dependencies": {
+        "concurrently": "^5.1.0"
+    }
+}

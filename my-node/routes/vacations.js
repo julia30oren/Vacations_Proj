@@ -3,43 +3,27 @@ const router = express.Router();
 const pool = require("../DB/pool");
 
 router.get("/vacations", async(req, res, next) => {
-    const result = await pool.execute(getVacationsQuery());
+    const result = await pool.execute(getVacations_Query());
     res.json(result[0]);
 })
 
-router.post("/vacations/toSort", async(req, res, next) => {
-    const { by, vacations } = req.body
-    if (by === 'likes') {
-        const result = await pool.execute(`SELECT * FROM vacation_project.vacations ORDER BY likes ;`);
-        res.json(result[0]);
-    }
-    if (by === 'vacation_prices') {
-        const result = await pool.execute(`SELECT * FROM vacation_project.vacations ORDER BY vacation_prices ;`);
-        res.json(result[0]);
-    }
-    if (by === 'vacation_names') {
-        const result = await pool.execute(`SELECT * FROM vacation_project.vacations ORDER BY vacation_names ;`);
-        res.json(result[0]);
-    }
-    if (!by && vacations) {
-        console.log(vacations)
-    } else {
-        const result = await pool.execute(getVacationsQuery());
-        res.json(result[0]);
-    }
+router.post("/vacations/save_like", async(req, res, next) => {
+    const { vacation_id, users_email } = req.body;
+    // get user_id
+    const getUsersID_res = await pool.execute(getUsersID_Query(), [users_email]);
+    const users_id = getUsersID_res[0][0].id;
+    const saveNewLike_res = await pool.execute(saveNewLike_Query(), [vacation_id, users_email, users_id]);
 })
 
-router.post("/vacations/likes", async(req, res, next) => {
-    const { vacation_id, vacation_likes, user_email, user_favorits } = req.body;
-    console.log(vacation_id, vacation_likes, user_email, `[${user_favorits}]`)
-    const saveNewLike_inVacations = await pool.execute(saveNewVacationLikeQuery(), [vacation_likes, vacation_id]);
-    const updateUsersLikes = await pool.execute(updateUsersLikesQuery(), [`[${user_favorits}]`, user_email]);
+router.post("/vacations/remove_like", async(req, res, next) => {
+    const { vacation_id, users_email } = req.body;
+    const removeLike_res = await pool.execute(removeLike_Query(), [vacation_id, users_email]);
 })
 
 router.post("/vacations/add_new", async(req, res, next) => {
-    const { vacation_names, vacation_descriptions, vacation_prices, vacation_start, vacation_end, vacation_pictures } = req.body;
-    if (vacation_names, vacation_descriptions, vacation_prices, vacation_start, vacation_end, vacation_pictures) {
-        const saveVacationRes = await pool.execute(saveNewVacationQuery(), [vacation_names, vacation_descriptions, vacation_prices, vacation_start, vacation_end, vacation_pictures]);
+    const { vacations_country, vacations_prices, vacations_description, vacations_start, vacations_end, vacations_IMG } = req.body;
+    if (vacations_country, vacations_prices, vacations_description, vacations_start, vacations_end, vacations_IMG) {
+        const saveVacationRes = await pool.execute(saveNewVacation_Query(), [vacations_country, vacations_description, vacations_prices, vacations_start, vacations_end, vacations_IMG]);
         res.json({ message: 'vacation is added successfully' });
     } else {
         res.json({ message: 'something is missing!!!!' });
@@ -47,44 +31,59 @@ router.post("/vacations/add_new", async(req, res, next) => {
 })
 
 router.post("/vacations/change", async(req, res, next) => {
-    const { id, vacation_names, vacation_descriptions, vacation_prices, vacation_start, vacation_end, vacation_pictures } = req.body;
-    const changeVacation = await pool.execute(changeVacationQuery(), [vacation_names, vacation_descriptions, (vacation_prices), vacation_start, vacation_end, vacation_pictures, id]);
+    const { id, vacations_country, vacations_prices, vacations_description, vacations_start, vacations_end, vacations_IMG } = req.body;
+    const changeVacation = await pool.execute(changeVacation_Query(), [vacations_country, vacations_description, vacations_prices, vacations_start, vacations_end, vacations_IMG, id]);
 })
 
 router.post("/vacations/delete", async(req, res, next) => {
     const { id } = req.body;
-    const deleteVacation = await pool.execute(deleteVacationQuery(), [id]);
+    const deleteVacation = await pool.execute(deleteVacation_Query(), [id]);
+    const deleteVac_fromLikes = await pool.execute(deleteVacation_fromLikes(), [id]);
     res.json({ message: 'vacation was deleted' });
 })
 
-function getVacationsQuery() {
-    return `SELECT * FROM vacation_project.vacations ;`
+function getVacations_Query() {
+    return `SELECT vacations.id AS vacation_id, vacations.vacations_country, vacations_description, vacations_prices, vacations_start, vacations_end, vacations_IMG, sum(likes_) AS LIKES
+            FROM vacations_project.vacations
+            LEFT JOIN vacations_project.likes_count
+            ON vacations.id = likes_count.vacation_id
+            GROUP BY vacations_country;`
 }
 
-function updateUsersLikesQuery() {
-    return `UPDATE vacation_project.users SET likes = ? 
-            WHERE email = ? ;`
+function getUsersID_Query() {
+    return `SELECT id FROM vacations_project.users
+            WHERE users_email = ? ;`
 }
 
-function saveNewVacationLikeQuery() {
-    return `UPDATE vacation_project.vacations SET likes = ? 
+function saveNewLike_Query() {
+    return `INSERT INTO vacations_project.likes_count ( vacation_id, user_email, user_id, likes_)
+            VALUES ( ?, ?, ?, 1) ;`
+}
+
+function removeLike_Query() {
+    return `DELETE FROM vacations_project.likes_count
+            WHERE vacation_id = ?  AND user_email = ? ;`
+}
+
+function saveNewVacation_Query() {
+    return `INSERT INTO vacations_project.vacations ( vacations_country, vacations_description, vacations_prices, vacations_start, vacations_end, vacations_IMG )
+            VALUES ( ?, ?, ?, ?, ?, ?);`
+}
+
+function changeVacation_Query() {
+    return `UPDATE vacations_project.vacations
+            SET vacations_country= ? , vacations_description= ? ,vacations_prices= ? , vacations_start= ? , vacations_end= ? , vacations_IMG= ? 
             WHERE id = ?;`
 }
 
-function saveNewVacationQuery() {
-    return `INSERT INTO vacation_project.vacations ( vacation_names, vacation_descriptions, vacation_prices, vacation_start, vacation_end, vacation_pictures )
-            VALUES (?, ?, ?, ?, ?, ?);`
-}
-
-function changeVacationQuery() {
-    return `UPDATE vacation_project.vacations 
-            SET vacation_names = ?, vacation_descriptions = ?, vacation_prices = ?, vacation_start = ?, vacation_end = ?, vacation_pictures = ?
+function deleteVacation_Query() {
+    return `DELETE FROM vacations_project.vacations 
             WHERE id = ? ;`
 }
 
-function deleteVacationQuery() {
-    return `DELETE FROM vacation_project.vacations 
-            WHERE id = ?;`
+function deleteVacation_fromLikes() {
+    return `DELETE FROM vacations_project.likes_count 
+            WHERE vacation_id = ? ;`
 }
 
 module.exports = router;
