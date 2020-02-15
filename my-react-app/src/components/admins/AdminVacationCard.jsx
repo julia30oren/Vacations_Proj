@@ -5,11 +5,12 @@ import delete_i from '../../icons/delete.png';
 import axios from 'axios';
 import Moment from 'moment';
 
+
 const deleteVacationUrl = "http://localhost:5000/vacations/delete";
 const changeVacationUrl = "http://localhost:5000/vacations/change";
 
 function AdminVacationCard(props) {
-    const [changeVacation, setChangeVacation] = useState(false)
+    const [changeVacation, setChangeVacation] = useState(false);
 
     async function deleteFunction() {
         const deleteVacation = await axios.post(deleteVacationUrl, { id: props.id });
@@ -28,10 +29,10 @@ function AdminVacationCard(props) {
     }
 
     return (
-        <div className="card_ ">{(changeVacation === false) ?
+        <div className="card_">{(changeVacation === false) ?
 
             <div className="c">
-                <img className="card_img" src={props.img} alt='...' />
+                <img className="card_img" src={props.img} />
                 <div className='content'>
                     <h3>{props.vacation_names}</h3>{!(props.likes) ?
                         <p>0 <img className="like_png" src={heart_green} alt="..." /></p> :
@@ -66,13 +67,13 @@ function AdminVacationCard(props) {
                         </div>
 
                         <div className="form-group">
-                            <input type="text" name="vacation_start" id="vacation_start" className="form-control"
-                                placeholder={Moment(props.start).format('YYYY.MM.DD')} />
+                            <input type="date" name="vacation_start" id="vacation_start" className="form-control"
+                                min="2020-01-01" max="2021-12-31" placeholder={Moment(props.start).format('YYYY.MM.DD')} />
                         </div>
 
                         <div className="form-group">
-                            <input type="text" name="vacation_end" id="vacation_end" className="form-control"
-                                placeholder={Moment(props.end).format('YYYY.MM.DD')} />
+                            <input type="date" name="vacation_end" id="vacation_end" className="form-control"
+                                min="2020-01-01" max="2021-12-31" placeholder={Moment(props.end).format('YYYY.MM.DD')} />
                         </div>
 
                         <div className="form-group">

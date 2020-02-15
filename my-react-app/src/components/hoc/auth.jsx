@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
+import axios from 'axios';
 
+const Url = "http://localhost:5000/verification";
 
 export const withAuth = (WrappedComponent) => {
     return function (props) {
@@ -9,15 +10,18 @@ export const withAuth = (WrappedComponent) => {
 
         useEffect(() => {
             const token = localStorage.token;
-            const key = document.cookie.split('=');
+            const user = localStorage.user;
 
-            jwt.verify(token, key[1], (err, decoded) => {
-                if (err) {
-                    localStorage.clear();
-                    return setStatus('varFail');
+            if (!token) {
+                return setStatus('varFail');
+            } else {
+                async function c() {
+                    const result = await axios.post(Url, { token: token, users_email: user });
+                    if (result.data.message === 'invalid token') return setStatus('varFail');
+                    else if (result.data.message === 'ok') return setStatus('tokenValid');
                 }
-                else return setStatus('result');
-            })
+                c();
+            }
         }, [])
 
         if (status === 'varFail') {

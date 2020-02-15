@@ -4,6 +4,8 @@ import AdminVacationCard from './AdminVacationCard';
 import AdminAddingForm from './AdminAddingForm';
 import download from '../../icons/download.png';
 import close from '../../icons/cancel.png';
+import ChartLinc from '../appRouter/ChartLinc';
+
 
 const vacationsUrl = "http://localhost:5000/vacations";
 
@@ -25,7 +27,8 @@ export default function AdminPage() {
 
     return (
         <div>
-            <h1 className="ad_h"> Admins page </h1>
+            <h1 className="ad_h"> Admins page</h1>
+            <div> <ChartLinc /></div>
             {vacations === 'loader' ? <div className="loader"></div> :
                 <div className="row admins_home">
                     <div className="col-0 col-sm-0 col-md-1 col-lg-1"></div>

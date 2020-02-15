@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import atantion_icon from '../icons/attention-sign-png--2400.png'
 
-export default function () {
+export default function (props) {
+
+    useEffect(() => {
+        localStorage.removeItem("I_Like");
+        localStorage.removeItem("InfoResult");
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("email");
+    }, [])
 
     return (
         <div className="row">

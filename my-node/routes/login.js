@@ -4,64 +4,47 @@ const JWT = require('jsonwebtoken');
 const pool = require("../DB/pool");
 const bcrypt = require('bcryptjs');
 
-////encoding password:
-// const password = "0000";
-// const salt = bcrypt.genSaltSync(10)
-// var hash = bcrypt.hashSync(password, salt);
-// console.log(hash)
-// const cryptoPass = bcrypt.hashSync(password, salt);
-// console.log(" === ", cryptoPass);
-// console.log(hash)
-// const cryptoPassChek = bcrypt.compareSync(password, hash)
-// console.log(hash)
-// console.log(" ++ ", cryptoPassChek);
-
-////token :
-// const email = 'julia@gmail.com';
-// const token = JWT.sign({ email }, process.env.SECRET, { expiresIn: '1h' });
-// console.log("token --", token);
-// var decoded = JWT.verify(token, process.env.SECRET);
-// console.log(decoded.email, decoded.exp);
-
 router.post("/login", async(req, res, next) => {
     const { users_email, password } = req.body;
-    const if_userExist_result = await pool.execute(ifUserExist(), [users_email]);
 
-    if (if_userExist_result[0][0]) {
-
-        const hush = if_userExist_result[0][0].cripted_password;
-        const cryptoPassChek = bcrypt.compareSync(password, hush);
-        const fullName = if_userExist_result[0][0].users_first_name + ' ' + if_userExist_result[0][0].users_last_name;
-
-        if (cryptoPassChek === true) {
-            const token = JWT.sign({ users_email }, process.env.SECRET, { expiresIn: '1h' });
-            const getUsersLikes_res = await pool.execute(getLikes(), [users_email]);
-            res.json({
-                message: 'user loged in',
-                user: fullName,
-                email: users_email,
-                likes: getUsersLikes_res[0][0].users_favorites,
-                token: token,
-                cookie_token: process.env.SECRET,
-                redirect: true
-            });
+    if (users_email === 'admin') {
+        const if_adminExist_result = await pool.execute(ifAdminExist(), [users_email, password]);
+        const adminExist = if_adminExist_result[0][0];
+        console.log(adminExist);
+        if (adminExist) {
+            const token = JWT.sign({ users_email }, process.env.ADMIN_SECRET, { expiresIn: '1h' });
+            res.json({ message: 'user loged as ADMIN', redirect: true, user: users_email, token: token });
         } else {
-            res.json({ message: 'password do not match !!!!' });
+            res.json({ message: 'password did not match !!!!' });
         }
-    } else {
-        res.json({ message: 'user do not exist !!!!' });
     }
-})
+    if (users_email !== 'admin') {
+        const if_userExist_result = await pool.execute(ifUserExist(), [users_email]);
+        const userExist = if_userExist_result[0][0];
+        console.log(userExist);
+        if (userExist) {
 
-router.post("/login/admin", async(req, res, next) => {
-    const { name, password } = req.body;
-    console.log(name, password)
-    const if_adminExist_result = await pool.execute(ifAdminExist(), [name, password]);
-    if (if_adminExist_result[0][0]) {
-        const token = JWT.sign({ name }, process.env.ADMIN_SECRET, { expiresIn: '1h' });
-        res.json({ message: 'user loged as ADMIN', redirect: true, user: name, token: token, cookie_token: process.env.ADMIN_SECRET });
-    } else {
-        res.json({ message: 'password did not match !!!!' });
+            const hush = userExist.cripted_password;
+            const cryptoPassChek = bcrypt.compareSync(password, hush);
+            const fullName = userExist.users_first_name + ' ' + userExist.users_last_name;
+
+            if (cryptoPassChek === true) {
+                const token = JWT.sign({ users_email }, process.env.SECRET, { expiresIn: '1h' });
+                const getUsersLikes_res = await pool.execute(getLikes(), [users_email]);
+                res.json({
+                    message: 'user loged in',
+                    user: fullName,
+                    email: users_email,
+                    likes: getUsersLikes_res[0][0].users_favorites,
+                    token: token,
+                    redirect: true
+                });
+            } else {
+                res.json({ message: 'password do not match !!!!' });
+            }
+        } else {
+            res.json({ message: 'user do not exist !!!!' });
+        }
     }
 })
 
@@ -93,9 +76,9 @@ function getLikes() {
 }
 
 function ifAdminExist() {
-    return `SELECT * FROM vacations_project.admins
-            WHERE admins_name = ? 
-            AND admins_password = ? `
+    return `SELECT * FROM vacations_project.users
+            WHERE users_email = ? 
+            AND cripted_password = ? `
 }
 
 function cangePasswordQuery() {

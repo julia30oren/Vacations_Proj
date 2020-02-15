@@ -255,13 +255,16 @@ a {
     height: 50px;
     width: 50px;
     border-radius: 50px;
-    /* margin-left: 88%;
-    margin-top: 15px; */
 }
 
 .chengeVacation_form {
     margin: 20px;
     height: 450px;
+}
+
+.card_ {
+    background-image: url('https://cdn.steemitimages.com/DQmbQGsqqhgTgZK2Wh4o3o9pALrNqPVryT3AH17J4WExoqS/no-image-available-grid.jpg');
+    background-size: 500px 500px;
 }
 
 .newVacation_form {
@@ -293,4 +296,8 @@ a {
     border: none;
     height: 70px;
     width: 160px;
+}
+
+.newVacation_text {
+    color: black;
 }

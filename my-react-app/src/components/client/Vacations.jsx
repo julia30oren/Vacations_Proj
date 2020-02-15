@@ -11,6 +11,7 @@ export default function AllOrders() {
         setVacations('loader');
         async function getEffect() {
             const allVacationsResult = await axios.get(vacationsUrl);
+            console.log(allVacationsResult.data)
             if (allVacationsResult.data) {
                 const dataArr = [];
                 const usersFavorites = JSON.parse(localStorage.I_Like);

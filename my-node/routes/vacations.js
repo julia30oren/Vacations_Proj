@@ -9,7 +9,6 @@ router.get("/vacations", async(req, res, next) => {
 
 router.post("/vacations/save_like", async(req, res, next) => {
     const { vacation_id, users_email } = req.body;
-    // get user_id
     const getUsersID_res = await pool.execute(getUsersID_Query(), [users_email]);
     const users_id = getUsersID_res[0][0].id;
     const saveNewLike_res = await pool.execute(saveNewLike_Query(), [vacation_id, users_email, users_id]);
@@ -23,6 +22,7 @@ router.post("/vacations/remove_like", async(req, res, next) => {
 router.post("/vacations/add_new", async(req, res, next) => {
     const { vacations_country, vacations_prices, vacations_description, vacations_start, vacations_end, vacations_IMG } = req.body;
     if (vacations_country, vacations_prices, vacations_description, vacations_start, vacations_end, vacations_IMG) {
+        console.log(vacations_country, vacations_prices, vacations_description, vacations_start, vacations_end, vacations_IMG)
         const saveVacationRes = await pool.execute(saveNewVacation_Query(), [vacations_country, vacations_description, vacations_prices, vacations_start, vacations_end, vacations_IMG]);
         res.json({ message: 'vacation is added successfully' });
     } else {
@@ -47,7 +47,7 @@ function getVacations_Query() {
             FROM vacations_project.vacations
             LEFT JOIN vacations_project.likes_count
             ON vacations.id = likes_count.vacation_id
-            GROUP BY vacations_country;`
+            GROUP BY vacations.id;`
 }
 
 function getUsersID_Query() {

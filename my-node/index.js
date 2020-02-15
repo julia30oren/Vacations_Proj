@@ -1,6 +1,7 @@
+require("dotenv").config()
+
 const express = require('express');
 const bodyParser = require("body-parser");
-require("dotenv").config()
 const cors = require('cors')
 const sessions = require("./sessions/sessions");
 const validateSession = require("./routes/validateSession");
@@ -8,28 +9,29 @@ const logger = require("./utils/logger");
 const app = express();
 
 function ifEnvVarieblesExist(params) {
-    const missingPar = params.filter(param => !process.env[param]);
-    if (!missingPar.lenght) {
-        console.log(`${missingPar} - missing`)
+    const missingPart = params.filter(param => !process.env[param]);
+    if (missingPart.length > 0) {
+        logger.error(`${missingPart} --is missing in .env`);
+        console.log(`${missingPart} --is missing in .env`)
     } else return;
 }
-ifEnvVarieblesExist(["PORT", "SECRET"]);
-
+ifEnvVarieblesExist(["PORT", "HOST", "USER", "PASSWORD", "DATABASE", "DB_PORT", "SECRET", "ADMIN_SECRET"]);
 
 app.use(cors());
 
 app.use(bodyParser.json());
 app.use(validateSession);
-
+app.use(require('./routes/verification'))
 app.use(require('./routes/login'))
 app.use(require('./routes/register'))
 app.use(require('./routes/vacations'))
 
 app.listen(process.env.PORT, (err) => {
     if (err) {
-        console.log('__error with PORT', err)
+        console.log(`__error with PORT ${err}`);
+        logger.error(`__error with PORT: ${err}`);
     } else {
-        console.log("listening  to: " + process.env.PORT)
-        logger.info(`server is listening to port: ${process.env.PORT}`)
+        console.log(`server is listening to port: ${process.env.PORT}`);
+        logger.info(`server is listening to port: ${process.env.PORT}`);
     }
 })

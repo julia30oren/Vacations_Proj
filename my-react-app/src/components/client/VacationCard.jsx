@@ -49,7 +49,7 @@ function VacationCard(props) {
     return (
         <div className="card_">
             <div className="c">
-                <img src={props.img} alt='...' className="card_img" />
+                <img src={props.img} className="card_img" />
                 <div className='content' >
                     <button className="cardLikeButton" onClick={() => { if (!preLike.includes(props.id)) { addNewLike(props.id) } else { deleteLike(props.id) } }} >
                         <img className="like_png" src={(!preLike.includes(props.id)) ? heart : heart_green} alt="..." />
