@@ -46,10 +46,10 @@ export default class PasswordChenge extends React.Component {
 
     render() {
         return (
-            <div className="row">
-                <div className="col-sm-1 col-md-2 col-lg-3"></div>
-                <div className="some col-sm-10 col-md-8 col-lg-6">
-                    <h1>Password Chenge</h1>
+            <div className="component">
+                <div className="forms_us">
+
+                    <h1 className="form_tittle">Password Chenge :</h1>
 
                     <form>
                         <div className="form-group">
@@ -86,9 +86,7 @@ export default class PasswordChenge extends React.Component {
                             onClick={this.handleChengePass}>Submit</button>
                     </form>
                 </div>
-                <div className="col-sm-1 col-md-2 col-lg-3"></div>
             </div>
-
         );
     }
 }

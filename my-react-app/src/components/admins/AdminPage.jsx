@@ -26,32 +26,26 @@ export default function AdminPage() {
     }, []);
 
     return (
-        <div>
-            <h1 className="ad_h"> Admins page</h1>
-            <div> <ChartLinc /></div>
+        <div className="">
+            <div className="admin_nav">
+                <div><h1 className="page_tittle"> Admins page</h1></div>
+                <div id="chartLinc"><ChartLinc /></div>
+            </div>
             {vacations === 'loader' ? <div className="loader"></div> :
-                <div className="row admins_home">
-                    <div className="col-0 col-sm-0 col-md-1 col-lg-1"></div>
-
-                    <div className="col-12 col-sm-12 col-md-10 col-lg-10">
-                        <div className="row">
-                            {JSON.parse(localStorage.InfoResult).map((vacation, i) => {
-                                return (
-                                    <AdminVacationCard key={i}
-                                        id={vacation.vacation_id}
-                                        likes={vacation.LIKES}
-                                        img={vacation.vacations_IMG}
-                                        vacation_names={vacation.vacations_country}
-                                        vacation_prices={vacation.vacations_prices}
-                                        vacation_descriptions={vacation.vacations_description}
-                                        start={vacation.vacations_start}
-                                        end={vacation.vacations_end} />
-                                )
-                            })}
-                        </div>
-                    </div>
-
-                    <div className="col-0 col-sm-0 col-md-1 col-lg-1"></div>
+                <div className="admins_component">
+                    {JSON.parse(localStorage.InfoResult).map((vacation, i) => {
+                        return (
+                            <AdminVacationCard key={i}
+                                id={vacation.vacation_id}
+                                likes={vacation.LIKES}
+                                img={vacation.vacations_IMG}
+                                vacation_names={vacation.vacations_country}
+                                vacation_prices={vacation.vacations_prices}
+                                vacation_descriptions={vacation.vacations_description}
+                                start={vacation.vacations_start}
+                                end={vacation.vacations_end} />
+                        )
+                    })}
                 </div>
             }
             {(newVacation === false) ? <button className="btn btn-dark add_vac" onClick={() => { setNewVacation(true) }}> <img alt="..." className="ic_png" src={download} /> Add New Vacation </button> :

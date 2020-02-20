@@ -1,10 +1,7 @@
-require("dotenv").config()
-
 const express = require('express');
 const bodyParser = require("body-parser");
-const cors = require('cors')
-const sessions = require("./sessions/sessions");
-const validateSession = require("./routes/validateSession");
+const cors = require('cors');
+require('dotenv').config()
 const logger = require("./utils/logger");
 const app = express();
 
@@ -18,9 +15,8 @@ function ifEnvVarieblesExist(params) {
 ifEnvVarieblesExist(["PORT", "HOST", "USER", "PASSWORD", "DATABASE", "DB_PORT", "SECRET", "ADMIN_SECRET"]);
 
 app.use(cors());
-
 app.use(bodyParser.json());
-app.use(validateSession);
+
 app.use(require('./routes/verification'))
 app.use(require('./routes/login'))
 app.use(require('./routes/register'))

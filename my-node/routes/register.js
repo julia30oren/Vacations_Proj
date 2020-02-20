@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const pool = require("../DB/pool");
 const passwordValidation = require('./validSchema');
 const bcrypt = require('bcryptjs');
+const pool = require('../DB/pool')
 
 router.use(passwordValidation);
 

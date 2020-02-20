@@ -1,12 +1,25 @@
 body {
+    height: 500px;
     background: #363636;
     background: -moz-linear-gradient(left, #363636 0%, #212121 54%, #000000 100%);
     background: -webkit-linear-gradient(left, #363636 0%, #212121 54%, #000000 100%);
     background: linear-gradient(to right, #363636 0%, #212121 54%, #000000 100%);
+    color: seashell;
 }
 
-.App {
-    color: seashell;
+.component {
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 100px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+@media (max-width:425px) {
+    .component {
+        width: 100%;
+        margin-left: 0%;
+        margin-right: 0%;
+    }
 }
 
 
@@ -28,6 +41,8 @@ nav {
 
 ul li {
     list-style: none;
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
 .nav_icons {
@@ -75,16 +90,19 @@ a {
 
 /* LOGIN */
 
-.login_init {
-    margin-top: 150px;
-    position: fixed;
+.forms_us {
+    margin-top: 200px;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
-.log_component {
-    margin-top: 300px;
+@media(max-width:425px) {
+    .forms_us {
+        margin-top: 150px;
+    }
 }
 
-.ligin_name {
+.form_tittle {
     color: tomato;
 }
 
@@ -93,10 +111,6 @@ a {
     background-color: rgba(255, 0, 0, 0.4);
     border-bottom-right-radius: 30px;
     border-bottom-left-radius: 30px;
-}
-
-.some {
-    margin-top: 200px;
 }
 
 .atantion {
@@ -109,7 +123,7 @@ a {
 }
 
 .git_link {
-    padding-left: 47%;
+    padding-left: 48%;
     text-align: center;
 }
 
@@ -117,6 +131,7 @@ a {
 /* LOADER */
 
 .loader {
+    margin-top: 200px;
     margin-left: 45%;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
@@ -163,25 +178,60 @@ a {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.ad_h {
-    text-align: center;
+@media (max-width:425px) {
+    .user_welcome {
+        display: none;
+    }
+}
+
+
+/*  CARDS */
+
+.page_tittle {
     margin-top: 100px;
+}
+
+.cards {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
     margin-bottom: 100px;
 }
 
-.card_ {
-    margin: 1%;
+@media (max-width:425px) {
+    .cards {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
 }
 
-.c {
+.inner_card {
     height: 500px;
-    width: 500px;
+    width: 30%;
+    margin: 1%;
+    background-image: url('https://www.fyimusicnews.ca/sites/default/files/default_images/no-image-available.png');
+    background-size: 500px;
+}
+
+@media (max-width:425px) {
+    .inner_card {
+        width: 100%;
+        height: 300px;
+    }
 }
 
 .card_img {
     height: 500px;
     width: 100%;
     z-index: 111;
+}
+
+@media (max-width:425px) {
+    .card_img {
+        width: 100%;
+        height: 300px;
+    }
 }
 
 .content {
@@ -191,6 +241,34 @@ a {
     margin-top: -350px;
     background-color: rgba(0, 0, 0, 0.45);
     z-index: 222;
+}
+
+@media (max-width:425px) {
+    .content {
+        margin-top: -250px;
+        width: 100%;
+        height: 240px;
+        font-size: xx-small;
+    }
+}
+
+.cardLikeButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+}
+
+@media (max-width:425px) {
+    .cardLikeButton {
+        height: 30px;
+        width: 30px;
+    }
+    .like_png {
+        height: 20px;
+        width: 20px;
+    }
 }
 
 .like_png {
@@ -204,8 +282,101 @@ a {
     overflow: scroll;
 }
 
+@media (max-width:425px) {
+    .desc {
+        height: 40px;
+    }
+}
+
 .desc::-webkit-scrollbar {
     display: none;
+}
+
+
+/*  ADMINS */
+
+.admin_nav {
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#chartLinc {
+    margin-top: 100px;
+    position: absolute;
+    right: 14%;
+}
+
+@media (max-width:425px) {
+    .admin_nav {
+        margin-left: 5%;
+        margin-right: 0%;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    #chartLinc {
+        margin-top: 100px;
+        position: absolute;
+        right: 5%;
+    }
+}
+
+.admins_component {
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 100px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.admin_cards {
+    height: 500px;
+    width: 30%;
+    margin: 1%;
+}
+
+@media (max-width:425px) {
+    .admins_component {
+        width: 100%;
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+    .admin_cards {
+        height: 300px;
+        width: 90%;
+        margin-left: 5%;
+        margin-bottom: 5%;
+    }
+}
+
+.admin_inner_card {
+    background-image: url('https://www.fyimusicnews.ca/sites/default/files/default_images/no-image-available.png');
+    background-size: 500px;
+    height: 500px;
+    width: 100%;
+}
+
+@media (max-width:425px) {
+    .admin_inner_card {
+        background-size: 300px;
+        height: 300px;
+        width: 100%;
+    }
+}
+
+.admins_card_img {
+    height: 500px;
+    width: 100%;
+}
+
+@media (max-width:425px) {
+    .admins_card_img {
+        height: 300px;
+    }
 }
 
 .cardAdminButtons {
@@ -216,6 +387,14 @@ a {
     border-radius: 50px;
     position: absolute;
     margin: 5px;
+}
+
+@media (max-width:425px) {
+    .cardAdminButtons {
+        height: 40px;
+        width: 40px;
+        border-radius: 40px;
+    }
 }
 
 .cardAdminButtons:hover {
@@ -236,6 +415,20 @@ a {
     width: 25px;
 }
 
+@media (max-width:425px) {
+    #del {
+        margin-left: -50px;
+    }
+    .ic_png {
+        height: 20px;
+        width: 20px;
+    }
+    .rem_png {
+        height: 25px;
+        width: 25px;
+    }
+}
+
 .add_vac {
     margin-top: 50px;
     margin-bottom: 100px;
@@ -244,22 +437,36 @@ a {
 }
 
 .chart {
+    margin-top: 150px;
     margin-left: 12%;
     height: 50%;
     width: 80%;
 }
 
-.cardLikeButton {
-    background-color: rgba(255, 255, 255, 0.5);
-    border: none;
-    height: 50px;
-    width: 50px;
-    border-radius: 50px;
+@media(max-width:425px) {
+    .chart {
+        margin-top: 110px;
+        margin-left: 1%;
+        width: 98%;
+    }
 }
 
 .chengeVacation_form {
     margin: 20px;
     height: 450px;
+}
+
+@media (max-width:425px) {
+    .chengeVacation_form {
+        margin: 0px;
+        height: 300px;
+    }
+}
+
+@media (max-width:425px) {
+    .form-control {
+        height: 20px;
+    }
 }
 
 .card_ {
@@ -277,6 +484,16 @@ a {
     margin-left: 30%;
 }
 
+@media (max-width:425px) {
+    .newVacation_form {
+        border-radius: 5px;
+        padding: 0.5%;
+        width: 95%;
+        margin-left: 2.5%;
+        overflow: scroll;
+    }
+}
+
 .newVacation_div {
     position: fixed;
     left: 0;
@@ -288,10 +505,16 @@ a {
     padding: 2%;
 }
 
+@media (max-width:425px) {
+    .newVacation_div {
+        position: relative;
+        top: 0;
+    }
+}
+
 .x_button {
     margin-top: 80px;
     margin-left: 45%;
-    /* background-color: rgba(255, 253, 253, 0.5); */
     border-radius: 60px;
     border: none;
     height: 70px;

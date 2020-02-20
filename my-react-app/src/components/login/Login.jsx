@@ -45,38 +45,31 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <div className="container">
-                <div className="col-sm-1 col-md-2 col-lg-3"></div>
-                <div className="login_init col-sm-10 col-md-8 col-lg-6">
-                    {(this.state.redirect) ? <Redirect to="/home" /> : null}
-                    <div className="loginForm">
-                        <h1 className="ligin_name">Login :</h1>
-                        <form>
-                            <div className="form-group">
-                                <label htmlFor="users_email">Email address</label>
-                                <input type="email" name="users_email" className="form-control" id="users_email" placeholder="Enter your email"
-                                    onChange={this.handleOnChange} />
-                                {(this.state.users_email === 'users_email') ? <div className="not_filed"><p>You can't login without Email!</p></div> : null}
+            <div className="component">
+                {(this.state.redirect) ? <Redirect to="/home" /> : null}
+                <div className="forms_us">
+                    <h1 className="form_tittle">Login :</h1>
+                    <form>
+                        <div className="form-group">
+                            <label htmlFor="users_email">Email address</label>
+                            <input type="email" name="users_email" className="form-control" id="users_email" placeholder="Enter your email"
+                                onChange={this.handleOnChange} />
+                            {(this.state.users_email === 'users_email') ? <div className="not_filed"><p>You can't login without Email!</p></div> : null}
 
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="password">Password</label>
-                                <input type="password" name="password" className="form-control" id="password" placeholder="Password"
-                                    onChange={this.handleOnChange} />
-                                {(this.state.password === 'password') ? <div className="not_filed"><p>You can't login without Password!</p></div> : null}
-
-                            </div>
-
-                            <button type="button" className="btn btn-success btn-block loginBut"
-                                onClick={this.handleRegister}>Submit</button>
-                        </form>
-
-                        <div className="NavBar logLink">
-                            <LogLinks />
                         </div>
-                    </div>
+                        <div className="form-group">
+                            <label htmlFor="password">Password</label>
+                            <input type="password" name="password" className="form-control" id="password" placeholder="Password"
+                                onChange={this.handleOnChange} />
+                            {(this.state.password === 'password') ? <div className="not_filed"><p>You can't login without Password!</p></div> : null}
+                        </div>
+
+                        <button type="button" className="btn btn-success btn-block loginBut"
+                            onClick={this.handleRegister}>Submit</button>
+                    </form>
+                    <LogLinks />
+
                 </div>
-                <div className="col-sm-1 col-md-2 col-lg-3"></div>
             </div>
         );
     }

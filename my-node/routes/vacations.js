@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const pool = require("../DB/pool");
+const pool = require('../DB/pool')
 
 router.get("/vacations", async(req, res, next) => {
     const result = await pool.execute(getVacations_Query());

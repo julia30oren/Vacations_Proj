@@ -12,9 +12,8 @@ export default function (props) {
     }, [])
 
     return (
-        <div className="row">
-            <div className="col-sm-1 col-md-1 col-lg-1"></div>
-            <div className="atantion col-sm-10 col-md-10 col-lg-10">
+        <div className="component">
+            <div className="atantion">
                 <img className="atantion_icon" src={atantion_icon} />
                 <p>This site was created by Julia Orendovsky as a presentation project.</p>
                 <p>In the project I used Java Script, React,  Bootstrap, Node.js,  MySql.</p>
@@ -25,7 +24,6 @@ export default function (props) {
 
                 <p>Full code can be found on </p><a className="git_link" href="https://github.com/julia30oren/Vacations_Proj">Git Hub</a>
             </div>
-            <div className="col-sm-1 col-md-1 col-lg-1"></div>
         </div>
     )
 }

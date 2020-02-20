@@ -1,4 +1,4 @@
-
 /node_modules
-
+/logs/errors
+/logs/infos
 .env

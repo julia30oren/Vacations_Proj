@@ -29,11 +29,10 @@ function AdminVacationCard(props) {
     }
 
     return (
-        <div className="card_">{(changeVacation === false) ?
-
-            <div className="c">
-                <img className="card_img" src={props.img} />
-                <div className='content'>
+        <div className="admin_cards">{(changeVacation === false) ?
+            <div className="admin_inner_card">
+                <img className="admins_card_img" src={props.img} />
+                <div className="content">
                     <h3>{props.vacation_names}</h3>{!(props.likes) ?
                         <p>0 <img className="like_png" src={heart_green} alt="..." /></p> :
                         <p>{props.likes} <img className="like_png" src={heart_green} alt="..." /></p>}
@@ -62,7 +61,7 @@ function AdminVacationCard(props) {
                         </div>
 
                         <div className="form-group">
-                            <textarea className="form-control" name="vacation_descriptions" id="vacation_descriptions" rows="4"
+                            <textarea className="form-control" name="vacation_descriptions" id="vacation_descriptions"
                                 placeholder={props.vacation_descriptions}></textarea>
                         </div>
 

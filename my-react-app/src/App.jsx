@@ -7,7 +7,7 @@ import AppRoutes from './components/appRouter/AppRouters';
 export default function () {
 
     return (
-        <div className="App">
+        <div>
             <BrowserRouter>
                 <NavBar />
                 <Switch>

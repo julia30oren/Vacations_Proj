@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const JWT = require('jsonwebtoken');
-const pool = require("../DB/pool");
 const bcrypt = require('bcryptjs');
+const pool = require('../DB/pool')
+
 
 router.post("/login", async(req, res, next) => {
     const { users_email, password } = req.body;

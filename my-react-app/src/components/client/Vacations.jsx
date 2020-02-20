@@ -30,28 +30,26 @@ export default function AllOrders() {
     }, []);
 
     return (
-        <div className="ad_h row">
-            <div className="col-1 col-sm-1 col-md-1 col-lg-1"></div>
-
-            <div className="col-10 col-sm-10 col-md-10 col-lg-10">
-                {vacations === 'loader' ? <div className="loader" > </div> :
-                    <div className="row"> {
-                        JSON.parse(localStorage.InfoResult).map((vacation, i) => {
-                            return (
-                                <VacationCard key={i}
-                                    id={vacation.vacation_id}
-                                    likes={vacation.LIKES}
-                                    img={vacation.vacations_IMG}
-                                    vacation_names={vacation.vacations_country}
-                                    vacation_prices={vacation.vacations_prices}
-                                    vacation_descriptions={vacation.vacations_description}
-                                    start={vacation.vacations_start}
-                                    end={vacation.vacations_end} />
-                            )
-                        })
-                    }
-                    </div>}
+        <div className="component">
+            <div>
+                <h1 className="page_tittle"> Users page</h1>
             </div>
-            <div className="col-1 col-sm-1 col-md-1 col-lg-1"></div>
+            {vacations === 'loader' ? <div className="loader" > </div> :
+                <div className="cards"> {
+                    JSON.parse(localStorage.InfoResult).map((vacation, i) => {
+                        return (
+                            <VacationCard key={i}
+                                id={vacation.vacation_id}
+                                likes={vacation.LIKES}
+                                img={vacation.vacations_IMG}
+                                vacation_names={vacation.vacations_country}
+                                vacation_prices={vacation.vacations_prices}
+                                vacation_descriptions={vacation.vacations_description}
+                                start={vacation.vacations_start}
+                                end={vacation.vacations_end} />
+                        )
+                    })
+                }
+                </div>}
         </div>)
 }
