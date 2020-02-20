@@ -27,10 +27,17 @@ export default function AdminPage() {
 
     return (
         <div className="">
+
             <div className="admin_nav">
-                <div><h1 className="page_tittle"> Admins page</h1></div>
                 <div id="chartLinc"><ChartLinc /></div>
+                <div><h1 className="page_tittle"> Admins page</h1></div>
             </div>
+
+            {(newVacation === false) ? <button className="btn btn-dark add_vac" onClick={() => { setNewVacation(true) }}> <img alt="..." className="ic_png" src={download} /> Add New Vacation </button> :
+                <div className="newVacation_div">
+                    <button className="x_button btn btn-dark" onClick={() => { setNewVacation(false); window.location.reload(); }}><img alt="..." className="ic_png" src={close} /> Close</button>
+                    <AdminAddingForm />
+                </div>}
             {vacations === 'loader' ? <div className="loader"></div> :
                 <div className="admins_component">
                     {JSON.parse(localStorage.InfoResult).map((vacation, i) => {
@@ -48,11 +55,6 @@ export default function AdminPage() {
                     })}
                 </div>
             }
-            {(newVacation === false) ? <button className="btn btn-dark add_vac" onClick={() => { setNewVacation(true) }}> <img alt="..." className="ic_png" src={download} /> Add New Vacation </button> :
-                <div className="newVacation_div">
-                    <button className="x_button btn btn-dark" onClick={() => { setNewVacation(false); window.location.reload(); }}><img alt="..." className="ic_png" src={close} /> Close</button>
-                    <AdminAddingForm />
-                </div>}
         </div>
     )
 }

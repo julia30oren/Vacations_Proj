@@ -32,7 +32,7 @@ export default function AllOrders() {
     return (
         <div className="component">
             <div>
-                <h1 className="page_tittle"> Users page</h1>
+                <h1 className="page_tittle "> Users page</h1>
             </div>
             {vacations === 'loader' ? <div className="loader" > </div> :
                 <div className="cards"> {

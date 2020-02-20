@@ -13,10 +13,16 @@ function AdminVacationCard(props) {
     const [changeVacation, setChangeVacation] = useState(false);
 
     async function deleteFunction() {
-        const deleteVacation = await axios.post(deleteVacationUrl, { id: props.id });
-        const { message } = deleteVacation.data;
-        window.location.reload();
-        if (message) alert(message);
+        var c = window.confirm("Sure you want to delete this vacation?");
+        if (c == true) {
+            const deleteVacation = await axios.post(deleteVacationUrl, { id: props.id });
+            const { message } = deleteVacation.data;
+            window.location.reload();
+            if (message) alert(message);
+        } else {
+            window.location.reload();
+        }
+
     }
 
     function ChangeVacation(newId, newName, newPrice, newDescriptions, newStart, newEnd, newImg) {
@@ -25,6 +31,10 @@ function AdminVacationCard(props) {
         }
         sendChangesToDB();
         setChangeVacation(false);
+        window.location.reload();
+    }
+
+    function Сancel() {
         window.location.reload();
     }
 
@@ -91,6 +101,7 @@ function AdminVacationCard(props) {
 
                             ChangeVacation(newId, newName, newPrice, newDescriptions, Moment(newStart).format('YYYY-MM-DD'), Moment(newEnd).format('YYYY-MM-DD'), newImg)
                         }}>Change Vacation</button>
+                        <button type="button" className="btn btn-dark btn-block loginBut" onClick={() => { Сancel() }}>Сancel</button>
                     </form>
                 </div>
             </div>
