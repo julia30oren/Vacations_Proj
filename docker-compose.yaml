@@ -1,0 +1,18 @@
+version: "3"
+services:
+  vacation_client:
+    container_name: vacation_client
+    build:
+      context: my-react-app/
+      dockerfile: Dockerfile
+    image: vacation_client:latest
+    ports:
+      - "5000:5000"
+  vacation_server:
+    container_name: vacation_server
+    build:
+      context: my-node/
+      dockerfile: Dockerfile
+    image: vacation_server:latest
+    ports:
+      - "3000:3000"
