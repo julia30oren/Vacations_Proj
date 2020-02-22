@@ -3,8 +3,9 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
 import axios from 'axios';
+import { serverURL } from '../../config';
 
-const addNewVacationUrl = "http://localhost:5000/vacations/add_new";
+const addNewVacationUrl = `${serverURL}/vacations/add_new`;
 export default class AdminAddingForm extends React.Component {
     constructor(props) {
         super(props)

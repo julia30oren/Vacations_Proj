@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import { serverURL } from '../../config';
 
-const registerUrl = "http://localhost:5000/registration";
+
+const registerUrl = `${serverURL}/registration`;
 
 export default class Register extends React.Component {
   constructor(props) {
@@ -37,7 +39,7 @@ export default class Register extends React.Component {
       const { message, redirect } = result.data;
       alert(message);
       if (redirect === true) {
-        console.log('-- redirect true');
+        // console.log('-- redirect true');
         this.props.history.push('/login')
       }
     } else {

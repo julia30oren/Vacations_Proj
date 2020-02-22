@@ -5,9 +5,10 @@ import AdminAddingForm from './AdminAddingForm';
 import download from '../../icons/download.png';
 import close from '../../icons/cancel.png';
 import ChartLinc from '../appRouter/ChartLinc';
+import { serverURL } from '../../config';
 
 
-const vacationsUrl = "http://localhost:5000/vacations";
+const vacationsUrl = `${serverURL}/vacations`;
 
 export default function AdminPage() {
     const [vacations, setVacations] = useState('loader');

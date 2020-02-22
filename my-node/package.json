@@ -4,7 +4,7 @@
     "description": "'node.js + react + security token'",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "npm run-script build",
         "start": "nodemon index.js"
     },
     "author": "Julia Orendovskyi",

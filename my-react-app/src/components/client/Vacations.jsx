@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import VacationCard from './VacationCard';
+import { serverURL } from '../../config';
 
-const vacationsUrl = "http://localhost:5000/vacations";
+const vacationsUrl = `${serverURL}/vacations`;
 
 export default function AllOrders() {
     const [vacations, setVacations] = useState('loader');
@@ -11,7 +12,7 @@ export default function AllOrders() {
         setVacations('loader');
         async function getEffect() {
             const allVacationsResult = await axios.get(vacationsUrl);
-            console.log(allVacationsResult.data)
+            // console.log(allVacationsResult.data)
             if (allVacationsResult.data) {
                 const dataArr = [];
                 const usersFavorites = JSON.parse(localStorage.I_Like);

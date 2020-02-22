@@ -2,8 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import LogLinks from '../appRouter/LogLinks';
 import { Redirect } from "react-router";
+import { serverURL } from '../../config';
 
-const loginUrl = "http://localhost:5000/login";
+const loginUrl = `${serverURL}/login`;
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -24,7 +25,7 @@ export default class Login extends React.Component {
     handleRegister = async (props) => {
         const result = await axios.post(loginUrl, this.state);
         const { message, user, token, likes, redirect, email } = result.data;
-        console.log(this.state)
+        // console.log(this.state)
         if (likes === null) {
             const emptyArray = '[]';
             localStorage.setItem("I_Like", emptyArray);

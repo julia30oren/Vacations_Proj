@@ -1,24 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import { serverURL } from '../../config';
 
-const Url = "http://localhost:5000/verification";
+const Url = `${serverURL}/verification`;
 
 export const withAuth = (WrappedComponent) => {
     return function (props) {
         const [status, setStatus] = useState('checking');
-        const token = localStorage.token;
-        const user = localStorage.user;
+        const token = localStorage.getItem('token');
+        const user = localStorage.getItem('user');
 
         useEffect(() => {
             if (!token) {
                 return setStatus('varFail');
             } else {
+                // console.log(token, user)
                 async function c() {
                     try {
                         const result = await axios.post(Url, { token: token, users_email: user });
-                        if (result.data.message === 'invalid token') return setStatus('varFail');
-                        else if (result.data.message === 'ok') return setStatus('tokenValid');
+                        // console.log(result)
+                        if (result.data.message === 'invalid token' || result.data.message === 'jwt expired') {
+                            localStorage.removeItem("I_Like");
+                            localStorage.removeItem("InfoResult");
+                            localStorage.removeItem("token");
+                            localStorage.removeItem("user");
+                            localStorage.removeItem("email");
+                            return setStatus('varFail');
+                        }
+                        if (result.data.message === 'ok') return setStatus('tokenValid');
                     } catch (err) {
                         console.log(err)
                     }

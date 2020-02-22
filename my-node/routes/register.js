@@ -8,7 +8,7 @@ router.use(passwordValidation);
 
 router.post("/registration", async(req, res, next) => {
     const { users_email, password, users_first_name, users_last_name } = req.body;
-    console.log(users_email, password, users_first_name, users_last_name)
+    // console.log(users_email, password, users_first_name, users_last_name)
 
     const ifUserExist_res = await pool.execute(ifUserExist(), [users_email]);
     if (ifUserExist_res[0][0]) {

@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
 import { Redirect } from 'react-router-dom';
+import { serverURL } from '../../config';
 
-const vacationsUrl = "http://localhost:5000/vacations";
+const vacationsUrl = `${serverURL}/vacations`;
 
 export default function Chart() {
     const [vacations, setVacations] = useState('loader');
@@ -29,7 +30,7 @@ export default function Chart() {
         } else {
             alert('Char is only for Admin');
             setVacations('redirect');
-            console.log(vacations);
+            // console.log(vacations);
         }
     }, []);
 

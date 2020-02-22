@@ -3,9 +3,10 @@ import axios from 'axios';
 import heart from '../../icons/heart.png';
 import heart_green from '../../icons/heart-green.png';
 import Moment from 'moment';
+import { serverURL } from '../../config';
 
-const saveLikeUrl = "http://localhost:5000/vacations/save_like";
-const removeLikeUrl = "http://localhost:5000/vacations/remove_like";
+const saveLikeUrl = `${serverURL}/vacations/save_like`;
+const removeLikeUrl = `${serverURL}/vacations/remove_like`;
 
 function VacationCard(props) {
 

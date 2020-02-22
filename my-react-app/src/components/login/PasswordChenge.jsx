@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import { serverURL } from '../../config';
 
-const chengePassUrl = "http://localhost:5000/login/password-chenge";
+const chengePassUrl = `${serverURL}/login/password-chenge`;
 
 export default class PasswordChenge extends React.Component {
     constructor(props) {
@@ -32,7 +33,7 @@ export default class PasswordChenge extends React.Component {
 
     handleChengePass = async () => {
         if (this.state.newpass === this.state.confpass) {
-            console.log("click", chengePassUrl, this.state)
+            // console.log("click", chengePassUrl, this.state)
             const result = await axios.post(chengePassUrl, { users_email: this.state.users_email, password: this.state.password, newpass: this.state.newpass });
             const { message, redirect } = result.data;
             alert(message);

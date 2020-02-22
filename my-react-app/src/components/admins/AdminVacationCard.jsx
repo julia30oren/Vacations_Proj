@@ -4,10 +4,11 @@ import edit from '../../icons/edit.png';
 import delete_i from '../../icons/delete.png';
 import axios from 'axios';
 import Moment from 'moment';
+import { serverURL } from '../../config';
 
 
-const deleteVacationUrl = "http://localhost:5000/vacations/delete";
-const changeVacationUrl = "http://localhost:5000/vacations/change";
+const deleteVacationUrl = `${serverURL}/vacations/delete`;
+const changeVacationUrl = `${serverURL}/vacations/change`;
 
 function AdminVacationCard(props) {
     const [changeVacation, setChangeVacation] = useState(false);
@@ -22,7 +23,6 @@ function AdminVacationCard(props) {
         } else {
             window.location.reload();
         }
-
     }
 
     function ChangeVacation(newId, newName, newPrice, newDescriptions, newStart, newEnd, newImg) {

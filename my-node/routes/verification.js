@@ -17,7 +17,7 @@ router.post("/verification", async(req, res, next) => {
     } catch (err) {
         if (err) {
             logger.info(err.message);
-            console.log(err.message);
+            // console.log(err.message);
             res.json({ message: err.message });
         }
     }

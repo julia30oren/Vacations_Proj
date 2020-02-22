@@ -23,7 +23,7 @@ const validSchema = Joi.object({
 function passwordValidation(req, res, next) {
     const { error } = validSchema.validate(req.body);
     if (error) {
-        console.log(error);
+        // console.log(error);
         const error_message = error.details[0].context.name;
         if (error_message) {
             return res.json({ message: `Wrong format : ${error_message}` });

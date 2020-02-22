@@ -11,7 +11,7 @@ router.post("/login", async(req, res, next) => {
     if (users_email === 'admin') {
         const if_adminExist_result = await pool.execute(ifAdminExist(), [users_email, password]);
         const adminExist = if_adminExist_result[0][0];
-        console.log(adminExist);
+        // console.log(adminExist);
         if (adminExist) {
             const token = JWT.sign({ users_email }, process.env.ADMIN_SECRET, { expiresIn: '1h' });
             res.json({ message: 'user loged as ADMIN', redirect: true, user: users_email, token: token });
@@ -22,7 +22,7 @@ router.post("/login", async(req, res, next) => {
     if (users_email !== 'admin') {
         const if_userExist_result = await pool.execute(ifUserExist(), [users_email]);
         const userExist = if_userExist_result[0][0];
-        console.log(userExist);
+        // console.log(userExist);
         if (userExist) {
 
             const hush = userExist.cripted_password;

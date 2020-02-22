@@ -22,7 +22,7 @@ router.post("/vacations/remove_like", async(req, res, next) => {
 router.post("/vacations/add_new", async(req, res, next) => {
     const { vacations_country, vacations_prices, vacations_description, vacations_start, vacations_end, vacations_IMG } = req.body;
     if (vacations_country, vacations_prices, vacations_description, vacations_start, vacations_end, vacations_IMG) {
-        console.log(vacations_country, vacations_prices, vacations_description, vacations_start, vacations_end, vacations_IMG)
+        // console.log(vacations_country, vacations_prices, vacations_description, vacations_start, vacations_end, vacations_IMG)
         const saveVacationRes = await pool.execute(saveNewVacation_Query(), [vacations_country, vacations_description, vacations_prices, vacations_start, vacations_end, vacations_IMG]);
         res.json({ message: 'vacation is added successfully' });
     } else {

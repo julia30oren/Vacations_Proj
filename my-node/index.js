@@ -14,9 +14,11 @@ function ifEnvVarieblesExist(params) {
 }
 ifEnvVarieblesExist(["PORT", "HOST", "USER", "PASSWORD", "DATABASE", "DB_PORT", "SECRET", "ADMIN_SECRET"]);
 
+
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use(require('./routes/get'))
 app.use(require('./routes/verification'))
 app.use(require('./routes/login'))
 app.use(require('./routes/register'))
