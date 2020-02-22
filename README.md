@@ -6,12 +6,16 @@ node.js + react + security token
 
 //
 ## Start MYSQL server 
-> docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=password -d mysql:8.0.19
+> docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=password -d mysql:8.0.19  
+  Disable sql_mode by typing:  
+  mysql -u root -p  
+  set global sql_mode='';  
+  set session sql_mode='';
 
 ## Start application client
-> docker run -d -p 3000:3000 vacation_client:latest  
+> docker run -d -p 3000:3000 --name client vacation_client:latest  
 
 ## Start application backend
-> docker run -d -p 5000:5000 vacation_server:latest
+> docker run -d -p 5000:5000 --name backend vacation_server:latest
 
 ## Open in browser <MAXCHINE_IP>:3000
