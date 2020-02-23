@@ -46,7 +46,8 @@ function getVacations_Query() {
     return `SELECT vacations.id AS vacation_id, vacations.vacations_country, vacations_description, vacations_prices, vacations_start, vacations_end, vacations_IMG, sum(likes_) AS LIKES
             FROM vacations_project.vacations
             LEFT JOIN vacations_project.likes_count
-            ON vacations.id = likes_count.vacation_id;`
+            ON vacations.id = likes_count.vacation_id
+            GROUP BY vacations.vacation_id;`
 }
 
 function getUsersID_Query() {

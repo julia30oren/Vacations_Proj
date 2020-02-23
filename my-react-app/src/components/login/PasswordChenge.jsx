@@ -32,8 +32,9 @@ export default class PasswordChenge extends React.Component {
     }
 
     handleChengePass = async () => {
-        if (this.state.newpass === this.state.confpass) {
-            // console.log("click", chengePassUrl, this.state)
+        console.log(this.state);
+        if (this.state.newpass === this.state.confPass) {
+            // console.log("click", chengePassUrl, { users_email: this.state.users_email, password: this.state.password, newpass: this.state.newpass });
             const result = await axios.post(chengePassUrl, { users_email: this.state.users_email, password: this.state.password, newpass: this.state.newpass });
             const { message, redirect } = result.data;
             alert(message);
@@ -41,7 +42,7 @@ export default class PasswordChenge extends React.Component {
                 this.props.history.push('/login')
             }
         } else {
-            alert('passwords does not match');
+            alert('new passwords does not match');
         }
     }
 

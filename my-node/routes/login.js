@@ -51,7 +51,9 @@ router.post("/login", async(req, res, next) => {
 
 router.post("/login/password-chenge", async(req, res, next) => {
     const { users_email, password, newpass } = req.body;
+    console.log(users_email, password, newpass);
     const userExist_result = await pool.execute(ifUserExist(), [users_email]);
+    console.log(userExist_result);
     const hush = userExist_result[0][0].cripted_password;
     const cryptoPassChek = bcrypt.compareSync(password, hush);
 
