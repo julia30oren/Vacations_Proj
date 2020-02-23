@@ -12,10 +12,27 @@ node.js + react + security token
   set global sql_mode='';  
   set session sql_mode='';
 
+##
+> ssh root@104.248.92.191
+> password
+
+##
+> cd /opt/vacationPROD
+> git pull
+
+##
+> docker-compose build
+
+##
+> docker rm -f client backend
+
 ## Start application client
 > docker run -d -p 3000:3000 --name client vacation_client:latest  
 
 ## Start application backend
 > docker run -d -p 5000:5000 --name backend vacation_server:latest
+
+##
+> docker ps
 
 ## Open in browser <MAXCHINE_IP>:3000
