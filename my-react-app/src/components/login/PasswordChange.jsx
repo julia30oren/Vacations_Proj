@@ -4,7 +4,7 @@ import { serverURL } from '../../config';
 
 const chengePassUrl = `${serverURL}/login/password-chenge`;
 
-export default class PasswordChenge extends React.Component {
+export default class PasswordChange extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -31,7 +31,7 @@ export default class PasswordChenge extends React.Component {
         else { this.setState({ [target.name]: target.value }); }
     }
 
-    handleChengePass = async () => {
+    handleChangePass = async () => {
         console.log(this.state);
         if (this.state.newpass === this.state.confPass) {
             // console.log("click", chengePassUrl, { users_email: this.state.users_email, password: this.state.password, newpass: this.state.newpass });
@@ -51,7 +51,7 @@ export default class PasswordChenge extends React.Component {
             <div className="component">
                 <div className="forms_us">
 
-                    <h1 className="form_tittle">Password Chenge :</h1>
+                    <h1 className="form_tittle">Password Change :</h1>
 
                     <form>
                         <div className="form-group">
@@ -85,7 +85,7 @@ export default class PasswordChenge extends React.Component {
                         </div>
 
                         <button type="button" className="btn btn-success btn-block loginBut"
-                            onClick={this.handleChengePass}>Submit</button>
+                            onClick={this.handleChangePass}>Submit</button>
                     </form>
                 </div>
             </div>
