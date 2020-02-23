@@ -47,7 +47,7 @@ function getVacations_Query() {
             FROM vacations_project.vacations
             LEFT JOIN vacations_project.likes_count
             ON vacations.id = likes_count.vacation_id
-            GROUP BY vacations.vacation_id;`
+            GROUP BY vacations.id;`
 }
 
 function getUsersID_Query() {
